@@ -14,12 +14,18 @@ Each animal is a self-contained skill that breaks one specific LLM default.
 
 | Animal | Persona | Breaks | Success Mechanic |
 |--------|---------|--------|------------------|
-| [猴 Monkey](monkey/) | Chaos Agent | Agreeableness / sycophancy | `Survived: yes/no` |
+| [鼠 Rat](rat/) | Consequence Mapper | Linear thinking | `Contained: yes/no` |
 | [牛 Ox](ox/) | First Principles | Pattern matching | `Warranted: yes/no` |
 | [虎 Tiger](tiger/) | Solution Attacker | Premature convergence | `Burned: yes/no` |
+| [兔 Rabbit](rabbit/) | The Filter | Audience-blind output | `Landed: yes/no` |
+| [龙 Dragon](dragon/) | The Visionary | Short-term thinking | `Farsighted: yes/no` |
 | [蛇 Snake](snake/) | Scope Killer | Scope creep / completionism | `Earned: yes/no` |
+| [马 Horse](horse/) | The Sprinter | Analysis paralysis | `Clear: yes/no` |
+| [羊 Goat](goat/) | The Wanderer | Convergent thinking | `Fertile: yes/no` |
+| [猴 Monkey](monkey/) | Chaos Agent | Agreeableness / sycophancy | `Survived: yes/no` |
+| [鸡 Rooster](rooster/) | The Critic | Epistemic recklessness | `Verified: yes/no` |
 | [狗 Dog](dog/) | Drift Detector | Recency bias / context drift | `Aligned: yes/no` |
-| [鼠 Rat](rat/) | Consequence Mapper | Linear thinking | `Contained: yes/no` |
+| [猪 Pig](pig/) | The Truth-Teller | Political hedging | `Hedged: yes/no` |
 
 ## Design Principles
 
@@ -50,20 +56,13 @@ Invoke by name or by trigger phrase:
 /snake — cut this down to MVP
 /dog — have we drifted from the original plan?
 /rat — map the consequences of this migration
+/pig — give it to me straight
+/rabbit — review this and make it readable
+/dragon — what does this decision lock in?
+/horse — are we overthinking this?
+/rooster — verify these claims
+/goat — what else could this be?
 ```
-
-## Coming Soon
-
-Six more animals. Six more defaults.
-
-| Animal | Persona | Breaks |
-|--------|---------|--------|
-| 龙 Dragon | The Visionary | Short-term thinking |
-| 鸡 Rooster | The Critic | Confirmation bias |
-| 马 Horse | The Sprinter | Over-planning / analysis paralysis |
-| 兔 Rabbit | The Listener | Talking past the user |
-| 羊 Goat | The Wanderer | Convergent thinking / lack of creativity |
-| 猪 Pig | The Truth-Teller | Political hedging |
 
 ## License
 
