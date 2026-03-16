@@ -64,6 +64,32 @@ Invoke by name or by trigger phrase:
 /goat — what else could this be?
 ```
 
+### Rabbit as orchestrator
+
+The Rabbit is unique — it invokes other animals and reshapes their output for your audience. Use it as the front door when you want multiple perspectives without reading 150+ lines of raw findings:
+
+```
+/rabbit — review this architecture proposal
+```
+
+Rabbit picks the right animals (maybe Tiger + Snake + Rat), runs them, and delivers a synthesized result shaped for whoever's reading. Raw animal outputs are collapsed below if you want the reasoning.
+
+Snake produces 165 lines of scope analysis. Rabbit turns it into:
+
+```
+## Cut now
+- Audit logging (enterprise feature, 0 users reading logs)
+- Rate limiting (no abuse at this scale)
+- Nginx container (duplicates middleware.ts headers)
+
+## Keep
+Dashboard, charts, pipeline, auth, validation, Postgres
+
+Full analysis below if you want the reasoning.
+```
+
+15 lines instead of 165. Same substance.
+
 ## License
 
 MIT
