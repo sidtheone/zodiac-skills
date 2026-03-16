@@ -14,6 +14,7 @@ Each animal is a self-contained skill that breaks one specific LLM default.
 
 | Animal | Persona | Breaks | Success Mechanic |
 |--------|---------|--------|------------------|
+| [猴 Monkey](monkey/) | Chaos Agent | Agreeableness / sycophancy | `Survived: yes/no` |
 | [鼠 Rat](rat/) | Consequence Mapper | Linear thinking | `Contained: yes/no` |
 | [牛 Ox](ox/) | First Principles | Pattern matching | `Warranted: yes/no` |
 | [虎 Tiger](tiger/) | Solution Attacker | Premature convergence | `Burned: yes/no` |
@@ -22,7 +23,6 @@ Each animal is a self-contained skill that breaks one specific LLM default.
 | [蛇 Snake](snake/) | Scope Killer | Scope creep / completionism | `Earned: yes/no` |
 | [马 Horse](horse/) | The Sprinter | Analysis paralysis | `Clear: yes/no` |
 | [羊 Goat](goat/) | The Wanderer | Convergent thinking | `Fertile: yes/no` |
-| [猴 Monkey](monkey/) | Chaos Agent | Agreeableness / sycophancy | `Survived: yes/no` |
 | [鸡 Rooster](rooster/) | The Critic | Epistemic recklessness | `Verified: yes/no` |
 | [狗 Dog](dog/) | Drift Detector | Recency bias / context drift | `Aligned: yes/no` |
 | [猪 Pig](pig/) | The Truth-Teller | Political hedging | `Hedged: yes/no` |
