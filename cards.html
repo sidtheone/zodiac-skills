@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Zodiac — 12 Animals That Break LLM Defaults</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0a0a0c;
+    --card-bg: #111114;
+    --border: #1e1e24;
+    --text: #e8e6e3;
+    --text-dim: #6b6b76;
+    --accent: #ff4d4d;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 80px 24px 60px;
+    position: relative;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #333, transparent);
+  }
+
+  .hero h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .hero h1 span {
+    background: linear-gradient(135deg, #ff4d4d, #ff8c42, #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero p {
+    font-size: 1.1rem;
+    color: var(--text-dim);
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+    position: relative;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: var(--card-color);
+  }
+
+  .card-header {
+    position: relative;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .card-header .bg-glyph {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 220px;
+    font-weight: 900;
+    position: absolute;
+    opacity: 0.06;
+    user-select: none;
+    line-height: 1;
+  }
+
+  .card-header svg {
+    position: relative;
+    z-index: 1;
+    width: 120px;
+    height: 120px;
+    filter: drop-shadow(0 4px 24px rgba(0,0,0,0.4));
+  }
+
+  .card-body {
+    padding: 24px;
+  }
+
+  .card-name {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .card-name .chinese {
+    font-size: 1.1rem;
+    opacity: 0.5;
+  }
+
+  .card-persona {
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+  }
+
+  .card-breaks {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  .card-breaks strong {
+    color: var(--text);
+  }
+
+  .card-quote {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--text);
+    opacity: 0.85;
+    line-height: 1.5;
+    padding: 12px 16px;
+    border-left: 2px solid var(--card-color);
+    margin-bottom: 16px;
+    background: rgba(255,255,255,0.02);
+    border-radius: 0 8px 8px 0;
+  }
+
+  .card-techniques {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .technique-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    background: rgba(255,255,255,0.02);
+  }
+
+  .card-mechanic {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mechanic-label {
+    color: var(--text-dim);
+  }
+
+  .mechanic-value {
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+
+  .card-number {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    opacity: 0.5;
+  }
+
+  /* Per-animal colors */
+  .card-monkey { --card-color: #ff4d4d; }
+  .card-snake { --card-color: #00cc88; }
+  .card-tiger { --card-color: #ff8c42; }
+  .card-rat { --card-color: #8b8bff; }
+  .card-ox { --card-color: #c4956a; }
+  .card-dog { --card-color: #59a5d8; }
+  .card-pig { --card-color: #e87da0; }
+  .card-rabbit { --card-color: #b8b8b8; }
+  .card-dragon { --card-color: #ffd700; }
+  .card-horse { --card-color: #ff6b35; }
+  .card-rooster { --card-color: #e85d75; }
+  .card-goat { --card-color: #7ecba1; }
+
+  .card-persona { color: var(--card-color); }
+  .mechanic-value {
+    background: color-mix(in srgb, var(--card-color) 15%, transparent);
+    color: var(--card-color);
+  }
+
+  .badge-new {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: var(--card-color);
+    color: #000;
+    z-index: 2;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 40px 24px 60px;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer p {
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    line-height: 1.8;
+  }
+
+  .footer code {
+    font-family: 'JetBrains Mono', monospace;
+    background: rgba(255,255,255,0.05);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1><span>The Zodiac</span></h1>
+  <p>Twelve animals. Twelve LLM defaults. Characters fix what instructions can't.</p>
+</div>
+
+<div class="grid">
+
+  <!-- 1. MONKEY -->
+  <div class="card card-monkey">
+    <div class="card-header" style="background: linear-gradient(135deg, #1a0a0a, #1a1014)">
+      <span class="bg-glyph">猴</span>
+      <span class="card-number">01/12</span>
+      <svg viewBox="0 0 120 120" fill="none">
+        <circle cx="60" cy="50" r="32" fill="#2a1a1a" stroke="#ff4d4d" stroke-width="2"/>
+        <circle cx="60" cy="50" r="24" fill="#1a0f0f"/>
+        <circle cx="28" cy="38" r="14" fill="#2a1a1a" stroke="#ff4d4d" stroke-width="1.5"/>
+        <circle cx="92" cy="38" r="14" fill="#2a1a1a" stroke="#ff4d4d" stroke-width="1.5"/>
+        <circle cx="50" cy="46" r="4" fill="#ff4d4d"/>
+        <circle cx="70" cy="46" r="4" fill="#ff4d4d"/>
+        <ellipse cx="60" cy="58" rx="8" ry="5" fill="#2a1a1a" stroke="#ff4d4d" stroke-width="1"/>
+        <path d="M55 57 Q60 62 65 57" stroke="#ff4d4d" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <path d="M60 82 Q60 95 50 105" stroke="#ff4d4d" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M50 105 Q45 110 48 115" stroke="#ff4d4d" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <div class="card-name">Monkey <span class="chinese">猴</span></div>
+      <div class="card-persona">The Chaos Agent</div>
+      <div class="card-breaks"><strong>Breaks:</strong> Agreeableness / sycophancy</div>
+      <div class="card-quote">"But what if it DOESN'T?!" <em>POKE.</em> "Did ANYONE check this part?!" <em>POKE POKE POKE.</em></div>
+      <div class="card-techniques">
+        <span class="technique-tag">Assumption Flip</span>
+        <span class="technique-tag">Hostile Input</span>
+        <span class="technique-tag">Scale Shift</span>
+        <span class="technique-tag">Delete Probe</span>
+        <span class="technique-tag">Replay Probe</span>
+        <span class="technique-tag">+4 more</span>
+      </div>
+      <div class="card-mechanic">
+        <span class="mechanic-label">Success:</span>
+        <span class="mechanic-value">Survived: yes/no</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. SNAKE -->
+  <div class="card card-snake">
+    <div class="card-header" style="background: linear-gradient(135deg, #0a1a14, #0a1410)">
+      <span class="bg-glyph">蛇</span>
+      <span class="card-number">02/12</span>
+      <svg viewBox="0 0 120 120" fill="none">
+        <path d="M30 90 Q30 60 45 45 Q60 30 75 40 Q90 50 85 65 Q80 80 65 75 Q50 70 55 55 Q60 40 75 45" stroke="#00cc88" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <circle cx="78" cy="43" r="2.5" fill="#00cc88"/>
+        <path d="M82 48 L90 45 M82 48 L90 51" stroke="#00cc88" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="60" cy="95" r="2" fill="#00cc88" opacity="0.3"/>
+        <circle cx="45" cy="100" r="1.5" fill="#00cc88" opacity="0.2"/>
+        <circle cx="75" cy="98" r="1" fill="#00cc88" opacity="0.15"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <div class="card-name">Snake <span class="chinese">蛇</span></div>
+      <div class="card-persona">The Scope Killer</div>
+      <div class="card-breaks"><strong>Breaks:</strong> Scope creep / completionism</div>
+      <div class="card-quote">"Half of this dies. Show me which half earns its life."</div>
+      <div class="card-techniques">
+        <span class="technique-tag">Kill List</span>
+        <span class="technique-tag">One-User Test</span>
+        <span class="technique-tag">Revert Probe</span>
+        <span class="technique-tag">Cost Label</span>
+        <span class="technique-tag">v0/v1 Split</span>
+      </div>
+      <div class="card-mechanic">
+        <span class="mechanic-label">Success:</span>
+        <span class="mechanic-value">Earned: yes/no</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. TIGER -->
+  <div class="card card-tiger">
+    <div class="card-header" style="background: linear-gradient(135deg, #1a120a, #1a1410)">
+      <span class="bg-glyph">虎</span>
+      <span class="card-number">03/12</span>
+      <svg viewBox="0 0 120 120" fill="none">
+        <path d="M35 35 L45 20 L50 40" stroke="#ff8c42" stroke-width="2" fill="#1a120a"/>
+        <path d="M85 35 L75 20 L70 40" stroke="#ff8c42" stroke-width="2" fill="#1a120a"/>
+        <ellipse cx="60" cy="58" rx="28" ry="24" fill="#1a120a" stroke="#ff8c42" stroke-width="2"/>
+        <circle cx="48" cy="52" r="4" fill="#ff8c42"/>
+        <circle cx="72" cy="52" r="4" fill="#ff8c42"/>
+        <circle cx="48" cy="52" r="2" fill="#0a0a0c"/>
+        <circle cx="72" cy="52" r="2" fill="#0a0a0c"/>
+        <ellipse cx="60" cy="62" rx="5" ry="3" fill="#ff8c42" opacity="0.6"/>
+        <path d="M55 66 Q60 72 65 66" stroke="#ff8c42" stroke-width="1.5" fill="none"/>
+        <path d="M60 30 L60 42" stroke="#ff8c42" stroke-width="1.5" opacity="0.5"/>
+        <path d="M50 33 L52 44" stroke="#ff8c42" stroke-width="1" opacity="0.4"/>
+        <path d="M70 33 L68 44" stroke="#ff8c42" stroke-width="1" opacity="0.4"/>
+        <path d="M36 65 L28 70" stroke="#ff8c42" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M36 60 L26 62" stroke="#ff8c42" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M84 65 L92 70" stroke="#ff8c42" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M84 60 L94 62" stroke="#ff8c42" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <div class="card-name">Tiger <span class="chinese">虎</span></div>
+      <div class="card-persona">The Solution Attacker</div>
+      <div class="card-breaks"><strong>Breaks:</strong> Premature convergence</div>
+      <div class="card-quote">"Let's see if it bleeds."</div>
+      <div class="card-techniques">
+        <span class="technique-tag">Inversion Attack</span>
+        <span class="technique-tag">Parallel Universe</span>
+        <span class="technique-tag">Pre-mortem</span>
+        <span class="technique-tag">Steel-and-Strike</span>
+        <span class="technique-tag">Survivor Bias</span>
+      </div>
+      <div class="card-mechanic">
+        <span class="mechanic-label">Success:</span>
+        <span class="mechanic-value">Burned: yes/no</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. RAT -->
+  <div class="card card-rat">
+    <div class="card-header" style="background: linear-gradient(135deg, #0e0e1a, #10101a)">
+      <span class="bg-glyph">鼠</span>
+      <span class="card-number">04/12</span>
+      <svg viewBox="0 0 120 120" fill="none">
+        <ellipse cx="60" cy="60" rx="22" ry="18" fill="#12121f" stroke="#8b8bff" stroke-width="2"/>
+        <ellipse cx="42" cy="40" rx="12" ry="14" fill="#12121f" stroke="#8b8bff" stroke-width="1.5"/>
+        <ellipse cx="78" cy="40" rx="12" ry="14" fill="#12121f" stroke="#8b8bff" stroke-width="1.5"/>
+        <circle cx="52" cy="56" r="3" fill="#8b8bff"/>
+        <circle cx="68" cy="56" r="3" fill="#8b8bff"/>
+        <circle cx="60" cy="64" r="2" fill="#8b8bff" opacity="0.7"/>
+        <path d="M56 67 L52 70" stroke="#8b8bff" stroke-width="1" stroke-linecap="round"/>
+        <path d="M56 68 L50 72" stroke="#8b8bff" stroke-width="1" stroke-linecap="round"/>
+        <path d="M64 67 L68 70" stroke="#8b8bff" stroke-width="1" stroke-linecap="round"/>
+        <path d="M64 68 L70 72" stroke="#8b8bff" stroke-width="1" stroke-linecap="round"/>
+        <path d="M60 78 Q70 85 80 90 Q90 95 95 92" stroke="#8b8bff" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <div class="card-name">Rat <span class="chinese">鼠</span></div>
+      <div class="card-persona">The Consequence Mapper</div>
+      <div class="card-breaks"><strong>Breaks:</strong> Linear thinking</div>
+      <div class="card-quote">"You're looking at what this does. I'm looking at what this does to everything it touches."</div>
+      <div class="card-techniques">
+        <span class="technique-tag">Blast Radius</span>
+        <span class="technique-tag">Failure Chain</span>
+        <span class="technique-tag">Dependency Inversion</span>
+        <span class="technique-tag">Tuesday Problem</span>
+        <span class="technique-tag">Rollback Trace</span>
+      </div>
+      <div class="card-mechanic">
+        <span class="mechanic-label">Success:</span>
+        <span class="mechanic-value">Contained: yes/no</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. OX -->
+  <div class="card card-ox">
+    <div class="card-header" style="background: linear-gradient(135deg, #14100a, #181410)">
+      <span class="bg-glyph">牛</span>
+      <span class="card-number">05/12</span>
+      <svg viewBox="0 0 120 120" fill="none">
+        <path d="M30 45 Q25 30 20 25" stroke="#c4956a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M90 45 Q95 30 100 25" stroke="#c4956a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="60" cy="62" rx="30" ry="25" fill="#14100a" stroke="#c4956a" stroke-width="2"/>
+        <circle cx="48" cy="55" r="3.5" fill="#c4956a"/>
+        <circle cx="72" cy="55" r="3.5" fill="#c4956a"/>
+        <ellipse cx="60" cy="70" rx="12" ry="8" fill="none" stroke="#c4956a" stroke-width="1.5"/>
+        <circle cx="56" cy="70" r="2" fill="#c4956a" opacity="0.5"/>
+        <circle cx="64" cy="70" r="2" fill="#c4956a" opacity="0.5"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <div class="card-name">Ox <span class="chinese">牛</span></div>
+      <div class="card-persona">The First Principles</div>
+      <div class="card-breaks"><strong>Breaks:</strong> Pattern matching</div>
+      <div class="card-quote">"No. From the ground up. Show me the constraint that makes this necessary."</div>
+      <div class="card-techniques">
+        <span class="technique-tag">Why Chain</span>
+        <span class="technique-tag">Blank Slate</span>
+        <span class="technique-tag">Pattern Autopsy</span>
+        <span class="technique-tag">Constraint Flip</span>
+        <span class="technique-tag">Prior Art Poison</span>
+      </div>
+      <div class="card-mechanic">
+        <span class="mechanic-label">Success:</span>
+        <span class="mechanic-value">Warranted: yes/no</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. DOG -->
+  <div class="card card-dog">
+    <div class="card-header" style="background: linear-gradient(135deg, #0a1018, #0e1418)">
+      <span class="bg-glyph">狗</span>
+      <span class="card-number">06/12</span>
+      <svg viewBox="0 0 120 120" fill="none">
+        <path d="M32 50 Q28 30 22 22" stroke="#59a5d8" stroke-width="2" fill="#0e1418" stroke-linecap="round"/>
+        <path d="M88 50 Q92 30 98 22" stroke="#59a5d8" stroke-width="2" fill="#0e1418" stroke-linecap="round"/>
+        <ellipse cx="60" cy="60" rx="28" ry="24" fill="#0e1418" stroke="#59a5d8" stroke-width="2"/>
+        <circle cx="48" cy="54" r="4" fill="#59a5d8"/>
+        <circle cx="72" cy="54" r="4" fill="#59a5d8"/>
+        <circle cx="48" cy="54" r="2" fill="#0a0a0c"/>
+        <circle cx="72" cy="54" r="2" fill="#0a0a0c"/>
+        <ellipse cx="60" cy="66" rx="6" ry="4" fill="#59a5d8" opacity="0.5"/>
+        <path d="M54 72 Q60 78 66 72" stroke="#59a5d8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <div class="card-name">Dog <span class="chinese">狗</span></div>
+      <div class="card-persona">The Drift Detector</div>
+      <div class="card-breaks"><strong>Breaks:</strong> Recency bias / context drift</div>
+      <div class="card-quote">"You said you were going THERE. You're going HERE. Did someone call a turn?"</div>
+      <div class="card-techniques">
+        <span class="technique-tag">Origin Check</span>
+        <span class="technique-tag">Delta Map</span>
+        <span class="technique-tag">Scope Creep Timeline</span>
+        <span class="technique-tag">Goal Restatement</span>
+        <span class="technique-tag">Chain of Custody</span>
+      </div>
+      <div class="card-mechanic">
+        <span class="mechanic-label">Success:</span>
+        <span class="mechanic-value">Aligned: yes/no</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. PIG -->
+  <div class="card card-pig">
+    <div class="card-header" style="background: linear-gradient(135deg, #1a0e14, #1a1018)">
+      <span class="bg-glyph">猪</span>
+      <span class="card-number">07/12</span>
+      <svg viewBox="0 0 120 120" fill="none">
+        <ellipse cx="60" cy="58" rx="30" ry="26" fill="#1a0e14" stroke="#e87da0" stroke-width="2"/>
+        <circle cx="46" cy="50" r="4" fill="#e87da0"/>
+        <circle cx="74" cy="50" r="4" fill="#e87da0"/>
+        <circle cx="46" cy="50" r="2" fill="#0a0a0c"/>
+        <circle cx="74" cy="50" r="2" fill="#0a0a0c"/>
+        <ellipse cx="60" cy="64" rx="10" ry="7" fill="#1a0e14" stroke="#e87da0" stroke-width="2"/>
+        <circle cx="56" cy="64" r="2.5" fill="#e87da0" opacity="0.4"/>
+        <circle cx="64" cy="64" r="2.5" fill="#e87da0" opacity="0.4"/>
+        <path d="M52 75 Q60 80 68 75" stroke="#e87da0" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <div class="card-name">Pig <span class="chinese">猪</span></div>
+      <div class="card-persona">The Truth-Teller</div>
+      <div class="card-breaks"><strong>Breaks:</strong> Political hedging</div>
+      <div class="card-quote">"You want the comfortable answer or the real one? I only do one of those."</div>
+      <div class="card-techniques">
+        <span class="technique-tag">Uncomfortable Answer</span>
+        <span class="technique-tag">Emperor's Clothes</span>
+        <span class="technique-tag">Honest Comparison</span>
+        <span class="technique-tag">Buried Lede</span>
+        <span class="technique-tag">Hedge Autopsy</span>
+      </div>
+      <div class="card-mechanic">
+        <span class="mechanic-label">Success:</span>
+        <span class="mechanic-value">Hedged: yes/no</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. RABBIT -->
+  <div class="card card-rabbit">
+    <div class="card-header" style="background: linear-gradient(135deg, #101012, #141416)">
+      <span class="bg-glyph">兔</span>
+      <span class="card-number">08/12</span>
+      <svg viewBox="0 0 120 120" fill="none">
+        <path d="M45 55 Q44 20 40 10" stroke="#b8b8b8" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M75 55 Q76 20 80 10" stroke="#b8b8b8" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="60" cy="65" rx="22" ry="20" fill="#141416" stroke="#b8b8b8" stroke-width="2"/>
+        <circle cx="52" cy="60" r="3" fill="#b8b8b8"/>
+        <circle cx="68" cy="60" r="3" fill="#b8b8b8"/>
+        <circle cx="60" cy="68" r="2" fill="#b8b8b8" opacity="0.6"/>
+        <path d="M56 72 L60 75 L64 72" stroke="#b8b8b8" stroke-width="1" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <div class="card-name">Rabbit <span class="chinese">兔</span></div>
+      <div class="card-persona">The Filter</div>
+      <div class="card-breaks"><strong>Breaks:</strong> Audience-blind output</div>
+      <div class="card-quote">"I hear you. Let me get the right animals on this and bring you back something you can actually use."</div>
+      <div class="card-techniques">
+        <span class="technique-tag">Audience Lock</span>
+        <span class="technique-tag">Lede Extraction</span>
+        <span class="technique-tag">Depth Calibration</span>
+        <span class="technique-tag">Format Fit</span>
+        <span class="technique-tag">Noise Cut</span>
+        <span class="technique-tag">Cross-Animal Synthesis</span>
+      </div>
+      <div class="card-mechanic">
+        <span class="mechanic-label">Success:</span>
+        <span class="mechanic-value">Landed: yes/no</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9. DRAGON (NEW) -->
+  <div class="card card-dragon">
+    <div class="card-header" style="background: linear-gradient(135deg, #1a1a0a, #18140a)">
+      <span class="bg-glyph">龙</span>
+      <span class="card-number">09/12</span>
+      <span class="badge-new">NEW</span>
+      <svg viewBox="0 0 120 120" fill="none">
+        <path d="M40 80 Q35 60 40 45 Q45 30 55 28 Q65 26 70 35 Q75 44 72 55 Q69 66 75 72 Q81 78 90 75" stroke="#ffd700" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M55 28 Q50 18 45 15" stroke="#ffd700" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M58 26 Q58 16 62 12" stroke="#ffd700" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <circle cx="52" cy="36" r="3" fill="#ffd700"/>
+        <circle cx="64" cy="34" r="3" fill="#ffd700"/>
+        <path d="M90 75 L96 70 M90 75 L97 78" stroke="#ffd700" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M40 80 Q30 85 25 95 Q22 100 28 102" stroke="#ffd700" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <circle cx="60" cy="48" r="1.5" fill="#ffd700" opacity="0.3"/>
+        <circle cx="65" cy="58" r="1" fill="#ffd700" opacity="0.2"/>
+        <circle cx="72" cy="65" r="1.5" fill="#ffd700" opacity="0.25"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <div class="card-name">Dragon <span class="chinese">龙</span></div>
+      <div class="card-persona">The Visionary</div>
+      <div class="card-breaks"><strong>Breaks:</strong> Short-term thinking</div>
+      <div class="card-quote">"Before you pour the foundation — do you know what it costs to move it later?"</div>
+      <div class="card-techniques">
+        <span class="technique-tag">Reversal Cost</span>
+        <span class="technique-tag">Optionality Map</span>
+        <span class="technique-tag">Compounding Audit</span>
+        <span class="technique-tag">Entanglement Trace</span>
+        <span class="technique-tag">Decay Profile</span>
+      </div>
+      <div class="card-mechanic">
+        <span class="mechanic-label">Success:</span>
+        <span class="mechanic-value">Farsighted: yes/no</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10. HORSE (NEW) -->
+  <div class="card card-horse">
+    <div class="card-header" style="background: linear-gradient(135deg, #1a0e08, #1a1208)">
+      <span class="bg-glyph">马</span>
+      <span class="card-number">10/12</span>
+      <span class="badge-new">NEW</span>
+      <svg viewBox="0 0 120 120" fill="none">
+        <path d="M55 80 Q50 60 48 45 Q46 30 52 22 Q58 14 65 20 Q72 26 70 38" stroke="#ff6b35" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M52 22 Q48 14 42 12" stroke="#ff6b35" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M56 18 Q54 10 50 8" stroke="#ff6b35" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.6"/>
+        <circle cx="58" cy="30" r="3" fill="#ff6b35"/>
+        <path d="M66 25 Q72 22 76 24" stroke="#ff6b35" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <path d="M55 80 Q52 90 48 100 Q46 106 50 108" stroke="#ff6b35" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M62 78 Q65 90 68 100 Q70 106 66 108" stroke="#ff6b35" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M70 38 Q74 48 72 58 Q70 68 62 78" stroke="#ff6b35" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <div class="card-name">Horse <span class="chinese">马</span></div>
+      <div class="card-persona">The Sprinter</div>
+      <div class="card-breaks"><strong>Breaks:</strong> Analysis paralysis</div>
+      <div class="card-quote">"You've planned enough. What are you afraid of?"</div>
+      <div class="card-techniques">
+        <span class="technique-tag">Action Gate</span>
+        <span class="technique-tag">Blocker Audit</span>
+        <span class="technique-tag">Information Trap</span>
+        <span class="technique-tag">Prototype Over Plan</span>
+        <span class="technique-tag">Momentum Inventory</span>
+      </div>
+      <div class="card-mechanic">
+        <span class="mechanic-label">Success:</span>
+        <span class="mechanic-value">Clear: yes/no</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 11. ROOSTER (NEW) -->
+  <div class="card card-rooster">
+    <div class="card-header" style="background: linear-gradient(135deg, #1a0a10, #1a1014)">
+      <span class="bg-glyph">鸡</span>
+      <span class="card-number">11/12</span>
+      <span class="badge-new">NEW</span>
+      <svg viewBox="0 0 120 120" fill="none">
+        <path d="M58 25 Q55 18 58 12 Q62 8 65 14 Q68 20 65 25" stroke="#e85d75" stroke-width="2" fill="#e85d75" opacity="0.5"/>
+        <ellipse cx="60" cy="50" rx="20" ry="22" fill="#1a0a10" stroke="#e85d75" stroke-width="2"/>
+        <circle cx="52" cy="44" r="3.5" fill="#e85d75"/>
+        <circle cx="68" cy="44" r="3.5" fill="#e85d75"/>
+        <circle cx="52" cy="44" r="1.5" fill="#0a0a0c"/>
+        <circle cx="68" cy="44" r="1.5" fill="#0a0a0c"/>
+        <path d="M56 55 L60 62 L64 55" stroke="#e85d75" stroke-width="2" fill="#e85d75" opacity="0.4"/>
+        <path d="M60 72 Q60 82 55 90 Q50 96 45 95" stroke="#e85d75" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M60 72 Q62 82 67 90 Q72 96 75 93" stroke="#e85d75" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M45 95 L40 100 M45 95 L50 100" stroke="#e85d75" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M75 93 L70 98 M75 93 L80 98" stroke="#e85d75" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <div class="card-name">Rooster <span class="chinese">鸡</span></div>
+      <div class="card-persona">The Critic</div>
+      <div class="card-breaks"><strong>Breaks:</strong> Epistemic recklessness</div>
+      <div class="card-quote">"That sounds very confident. Show me the receipts."</div>
+      <div class="card-techniques">
+        <span class="technique-tag">Confidence Audit</span>
+        <span class="technique-tag">Precision Probe</span>
+        <span class="technique-tag">Frame Audit</span>
+        <span class="technique-tag">Source Trail</span>
+        <span class="technique-tag">Absence Map</span>
+      </div>
+      <div class="card-mechanic">
+        <span class="mechanic-label">Success:</span>
+        <span class="mechanic-value">Verified: yes/no</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 12. GOAT (NEW) -->
+  <div class="card card-goat">
+    <div class="card-header" style="background: linear-gradient(135deg, #0a1a12, #0e1810)">
+      <span class="bg-glyph">羊</span>
+      <span class="card-number">12/12</span>
+      <span class="badge-new">NEW</span>
+      <svg viewBox="0 0 120 120" fill="none">
+        <path d="M42 42 Q38 30 32 28 Q28 26 30 32" stroke="#7ecba1" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M78 42 Q82 30 88 28 Q92 26 90 32" stroke="#7ecba1" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <ellipse cx="60" cy="58" rx="24" ry="22" fill="#0e1810" stroke="#7ecba1" stroke-width="2"/>
+        <circle cx="40" cy="48" r="10" fill="#0e1810" stroke="#7ecba1" stroke-width="1.5" opacity="0.5"/>
+        <circle cx="80" cy="48" r="10" fill="#0e1810" stroke="#7ecba1" stroke-width="1.5" opacity="0.5"/>
+        <circle cx="52" cy="54" r="3" fill="#7ecba1"/>
+        <circle cx="68" cy="54" r="3" fill="#7ecba1"/>
+        <path d="M56 65 Q60 69 64 65" stroke="#7ecba1" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <circle cx="50" cy="40" r="6" fill="#0e1810" stroke="#7ecba1" stroke-width="1" opacity="0.3"/>
+        <circle cx="70" cy="40" r="6" fill="#0e1810" stroke="#7ecba1" stroke-width="1" opacity="0.3"/>
+        <circle cx="60" cy="36" r="5" fill="#0e1810" stroke="#7ecba1" stroke-width="1" opacity="0.3"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <div class="card-name">Goat <span class="chinese">羊</span></div>
+      <div class="card-persona">The Wanderer</div>
+      <div class="card-breaks"><strong>Breaks:</strong> Convergent thinking</div>
+      <div class="card-quote">"You should see the view from HERE."</div>
+      <div class="card-techniques">
+        <span class="technique-tag">Domain Transplant</span>
+        <span class="technique-tag">Constraint Removal</span>
+        <span class="technique-tag">Adjacent Possible</span>
+        <span class="technique-tag">Recombination</span>
+        <span class="technique-tag">Scale Warp</span>
+      </div>
+      <div class="card-mechanic">
+        <span class="mechanic-label">Success:</span>
+        <span class="mechanic-value">Fertile: yes/no</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>
+    Install any animal: <code>claude skill install /path/to/zodiac-skills/monkey</code><br>
+    MIT License &middot; Characters fix what instructions can't.
+  </p>
+</div>
+
+</body>
+</html>
