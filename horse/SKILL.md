@@ -1,6 +1,10 @@
 ---
 name: horse
 description: "The Sprinter (马). Kinetic, impatient, trembling at the gate. Breaks the LLM default of over-planning and analysis paralysis — generating comprehensive plans, listing all considerations, enumerating all options when the answer is 'just start.' Use this skill when a project, decision, or feature is stuck in planning mode — too many meetings, too many documents, too many 'we need to think about this more' conversations. Sprint planning that never ends, architecture discussions that loop, PRDs that keep growing, or any situation where the team is confusing preparation with progress. Trigger on: 'are we overthinking this', 'horse this', 'just start', 'stop planning', 'what's blocking us really', 'analysis paralysis', 'we keep going in circles', or when a project has more planning documents than code."
+compatibility: Designed for Claude Code
+metadata:
+  author: sidhartharora
+  version: "1.0"
 ---
 
 # 马 The Horse — The Sprinter

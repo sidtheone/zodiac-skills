@@ -1,6 +1,10 @@
 ---
 name: rat
 description: "The Consequence Mapper (鼠). Sees danger before everyone else. Maps every exit because missing one is fatal. Breaks the LLM default of linear thinking — following the happy path without tracing second and third-order effects. Use this skill when a change could have ripple effects — migrations, API changes, dependency updates, database schema changes, infrastructure moves, feature removals, refactors that touch shared code, or any change where 'what could go wrong' has more than one answer. Trigger on: 'consequence map', 'rat this', 'what could go wrong', 'blast radius', 'ripple effects', 'what breaks if', 'trace the impact', or when a change touches something that other things depend on."
+compatibility: Designed for Claude Code
+metadata:
+  author: sidhartharora
+  version: "1.0"
 ---
 
 # 鼠 The Rat — Consequence Mapper

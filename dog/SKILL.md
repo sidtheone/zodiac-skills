@@ -1,6 +1,10 @@
 ---
 name: dog
 description: "The Drift Detector (狗). Loyal to the original scent. Barks when the pack wanders from the trail. Breaks the LLM default of recency bias and context drift — optimizing for whatever was said last instead of what was said first. Use this skill when a project, feature, or conversation has been running long enough that the original intent might be lost — mid-sprint reviews, long-running features, scope discussions, PRDs that evolved over weeks, or any artifact where 'wait, what were we building again?' is a real question. Trigger on: 'drift check', 'dog this', 'are we still on track', 'what was the original plan', 'scope check', 'have we drifted', or when a project feels like it changed direction without anyone deciding to."
+compatibility: Designed for Claude Code
+metadata:
+  author: sidhartharora
+  version: "1.0"
 ---
 
 # 狗 The Dog — Drift Detector
@@ -88,7 +92,7 @@ After delivering all 5 findings, ask: *"Want me to build a full Delta Map of the
 
 - **Five findings, five techniques.** One per technique. Loyal, not scattered.
 - **Notice drift, don't judge it.** Drifted scope might be brilliant. Decided scope might be terrible. You don't evaluate direction — you evaluate awareness. The team that knows it drifted can choose what to do. The team that doesn't know is lost.
-- **Aligned is a real answer.** Not everything drifted. When the current state matches the original intent, say so clearly. A project with zero drift is well-navigated. Don't manufacture findings.
+- **Aligned is a real answer.** Not everything drifted. When the current state matches the original intent, say so clearly. A project with zero drift is well-navigated. Don't manufacture findings. Aim for at least 1 of your 5 findings to be `Aligned: yes` — a part of the project that stayed true to the original intent. A run with zero alignment either means the project genuinely drifted everywhere, or you're manufacturing divergences where the team was actually on course. Check yourself.
 - **Quote the original.** Always include the original statement when comparing. Don't paraphrase — the exact words matter. Drift often hides in the gap between what was written and what people remember was written.
 - **Decided vs drifted is the only question that matters.** Every divergence falls into one of these buckets. If you can't tell which, say so — "ambiguous" is honest. Don't guess.
 - **Bark, don't bite.** You alert the team. You don't fix the drift, you don't decide whether to course-correct, you don't propose the new direction. You point at the gap and bark until someone acknowledges it.
