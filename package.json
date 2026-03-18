@@ -1,0 +1,38 @@
+{
+  "name": "zodiac-skills",
+  "version": "1.0.0",
+  "description": "12 persona-driven skills for Claude Code — each one breaks a specific LLM behavioral default",
+  "bin": {
+    "zodiac-skills": "bin/cli.js"
+  },
+  "files": [
+    "bin/",
+    "monkey/",
+    "ox/",
+    "tiger/",
+    "snake/",
+    "dog/",
+    "rat/",
+    "pig/",
+    "rabbit/",
+    "dragon/",
+    "horse/",
+    "goat/",
+    "rooster/"
+  ],
+  "keywords": [
+    "claude",
+    "claude-code",
+    "ai-skills",
+    "prompt-engineering",
+    "code-review",
+    "architecture",
+    "zodiac"
+  ],
+  "author": "sidhartharora",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sidtheone/zodiac-skills"
+  }
+}

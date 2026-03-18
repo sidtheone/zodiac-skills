@@ -46,14 +46,18 @@ Each `SKILL.md` follows a consistent format:
 4. **Anti-scope rules** — each animal has explicit boundaries ("you don't fix things", "you don't propose alternatives").
 5. **Calibrated honesty** — each animal must produce at least some positive findings (e.g., Monkey aims for 2/7 `Survived: yes`).
 
-## Working on Skills
+## Installing
 
-**Installing a skill locally:**
 ```bash
-claude skill install /path/to/zodiac-skills/<animal>
+npx zodiac-skills              # Install all 12
+npx zodiac-skills install monkey tiger snake   # Install specific animals
+npx zodiac-skills list         # Show install status
+npx zodiac-skills uninstall --all              # Remove all
 ```
 
-**Evals:** `zodiac-skills-workspace/evals.json` contains test prompts for each skill. Iteration outputs live in `zodiac-skills-workspace/iteration-N/`.
+Skills install to `~/.claude/skills/<animal>/`. Use `/<animal>` in Claude Code to invoke.
+
+**Evals:** `zodiac-skills-workspace/evals.json` contains test prompts for each skill. Trigger eval queries live in `zodiac-skills-workspace/trigger-evals/`. Iteration outputs live in `zodiac-skills-workspace/iteration-N/`.
 
 ## When Creating or Modifying a Skill
 
