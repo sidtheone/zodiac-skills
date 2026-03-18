@@ -32,6 +32,11 @@ Each `SKILL.md` follows a consistent format:
 | Dog (狗) | Drift Detector | Recency bias/context drift | `Aligned: yes/no/ambiguous` | 5 |
 | Rat (鼠) | Consequence Mapper | Linear thinking | `Contained: yes/no` | 5 |
 | Pig (猪) | Truth-Teller | Political hedging | `Hedged: yes/no` | 5 |
+| Rabbit (兔) | The Filter | Audience-blind verbosity | N/A (orchestrator) | N/A |
+| Dragon (龙) | The Visionary | Short-term thinking | `Farsighted: yes/no` | 5 |
+| Horse (马) | The Sprinter | Analysis paralysis | `Clear: yes/no` | 5 |
+| Goat (羊) | The Wanderer | Convergent thinking | `Fertile: yes/no` | 5 |
+| Rooster (鸡) | The Critic | Epistemic recklessness | `Verified: yes/no` | 5 |
 
 ## Key Design Principles to Preserve
 

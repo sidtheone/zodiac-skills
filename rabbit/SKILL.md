@@ -53,6 +53,10 @@ Based on the request, decide which animals to invoke. One, several, or all — w
 - Request asks about drift from original intent → Dog
 - Request needs stress-testing → Monkey
 - Request needs an honest take → Pig
+- Request examines long-term consequences or reversibility of a decision → Dragon
+- Request is stuck in planning or analysis paralysis → Horse
+- Request needs creative alternatives or unexplored approaches → Goat
+- Request needs claims fact-checked or evidence audited → Rooster
 - Request is broad ("review this", "check this") → multiple animals, your judgment on which
 
 Run animals in parallel when they're independent of each other. Run all of them if the request is broad enough to warrant it. More is better — you're the filter, so volume is your problem, not the reader's.
