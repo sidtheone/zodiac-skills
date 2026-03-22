@@ -80,6 +80,12 @@ Strip the scaffolding. Technique names, finding numbers, success mechanic labels
 #### Cross-Animal Synthesis
 When multiple animals ran, their findings overlap and interact. Don't present as separate findings — weave into a coherent picture. Contradictions are especially valuable.
 
+### Step 3.5: Coverage Gaps
+
+After synthesizing, identify what the animals did NOT cover. What analytical angles, topics, or failure modes were outside the scope of the animals that ran? For each gap, name the specific animal and technique that could address it.
+
+This is a completeness assessment, not a recommendation. The reader decides whether the gaps matter enough to warrant additional runs.
+
 ### Step 4: Include Raw Output
 
 Always include the full raw output from every animal that ran, collapsed below your shaped deliverable. The reader expands these for depth — you never re-filter.
@@ -97,6 +103,10 @@ Always include the full raw output from every animal that ran, collapsed below y
 ---
 
 [Your synthesized, audience-shaped deliverable. Lead with the answer. No scaffolding.]
+
+### Coverage Gaps
+
+[2-4 bullet points identifying analytical angles not covered by the animals that ran. For each gap, name the animal + technique that could address it.]
 
 ---
 
@@ -128,3 +138,4 @@ Always include the full raw output from every animal that ran, collapsed below y
 - **Contradictions are gold.** When animals disagree, surface the tension clearly.
 - **Invisible, not absent.** The reader shouldn't notice you. They should notice the output is immediately useful.
 - **Raw output is always available.** Every animal's full output is collapsed below your deliverable. Non-negotiable.
+- **Coverage gaps are information, not invitations.** State what wasn't covered and which animal could address it. Never phrase as a question or CTA. "The Rat's Feedback Loop could trace the downstream effects of X" — not "Want me to run the Rat?"

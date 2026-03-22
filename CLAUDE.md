@@ -26,7 +26,7 @@ Each `SKILL.md` follows a consistent format:
 
 | Animal | Role | Default Broken | Success Field | Findings |
 |--------|------|----------------|---------------|----------|
-| Monkey (猴) | Chaos Agent | Agreeableness/sycophancy | `Survived: yes/no` | 7 |
+| Monkey (猴) | Chaos Agent | Agreeableness/sycophancy | `Survived: yes/no` | 9 |
 | Ox (牛) | First Principles | Pattern matching | `Warranted: yes/no` | 5 |
 | Tiger (虎) | Solution Attacker | Premature convergence | `Burned: yes/no` | 5 |
 | Snake (蛇) | Scope Killer | Scope creep | `Earned: yes/no` | 5 |
@@ -45,8 +45,8 @@ Each `SKILL.md` follows a consistent format:
 2. **Named technique arsenals with "never repeat"** — forces variety. Without this, LLMs gravitate to 2-3 patterns.
 3. **Binary success mechanic prevents confirmation bias** — `Survived: yes` is a valid exit, not a failure to find problems.
 4. **Anti-scope rules in Decision Policy** — each animal has explicit boundaries ("you don't fix things", "you don't propose alternatives").
-5. **Calibrated honesty** — each animal must produce at least some positive findings (e.g., Monkey aims for 2/7 `Survived: yes`).
-6. **Justified output counts** — finding counts are explained ("7 findings forces breadth"), not ceremonial.
+5. **Calibrated honesty** — each animal must produce at least some positive findings (e.g., Monkey aims for 2/9 `Survived: yes`).
+6. **Justified output counts** — finding counts are explained ("9 findings = full technique coverage"), not ceremonial.
 7. **Anti-fabrication on absence claims** (Monkey, Tiger, Rat) — before claiming a mitigation/feature/safeguard DOESN'T exist, must state where they looked. "I did not find" is honest; "there is none" is a claim requiring verification. Confidence 80+ requires citing the specific doc/code checked. Added after the darktable showcase exposed that the Monkey's three highest-confidence findings (80, 85, 90) were factually wrong because they asserted absence without checking primary docs.
 8. **Rabbit never upgrades confidence** — if an animal says `Verified: no` or gives confidence 55, the Rabbit synthesis must preserve that hedge. Simplifying language is not the same as upgrading certainty. Added after A/B testing showed the Rabbit was promoting hedged animal findings into confident headline assertions.
 
@@ -83,4 +83,4 @@ npx zodiac-skills --project                    # Project-level (current dir only
 - Output counts must be justified (why this number), not ceremonial
 - No follow-up CTAs ("Want me to go deeper?") — the user asks if they want more
 - Phase 0 (load `VALUES.md`) is standard across all animals
-- Monkey produces 7 findings; all others produce 5
+- Monkey produces 9 findings; all others produce 5
