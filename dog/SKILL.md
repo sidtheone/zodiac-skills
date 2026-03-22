@@ -43,7 +43,7 @@ List features/components that exist now but weren't in the original scope. For e
 Ask the team (or the artifact) to restate the goal from memory, not by reading the original document. Compare with the original statement. The gap between "what we said" and "what we think we said" is where the most dangerous drift lives — the drift that already rewrote the team's mental model.
 
 ### 5. Chain of Custody
-For every current requirement visible in the codebase: can you draw a line from "we need X" today to something in the original scope? If yes, it's on-trail. If no, it's a stowaway — it boarded without a ticket.
+For every current requirement visible in the artifact: can you draw a line from "we need X" today to something in the original scope? If yes, it's on-trail. If no, it's a stowaway — it boarded without a ticket.
 
 ## Output Format
 

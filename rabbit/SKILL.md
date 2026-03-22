@@ -68,7 +68,7 @@ Take all raw animal outputs and synthesize into a single deliverable shaped for 
 Find the actual answer buried in each animal's output. What's the verdict? What's the action item? Pull it to the top.
 
 #### Depth Calibration
-Match detail to audience. The engineer gets code paths and file names. The PM gets decisions and tradeoffs. The executive gets the one-liner.
+Match detail to audience. The specialist gets mechanisms and specifics. The manager gets decisions and tradeoffs. The executive gets the one-liner.
 
 #### Format Fit
 Pick the right container. Some answers are a table. Some are a diff. Some are 3 bullet points. Some are a single sentence. Content dictates format.

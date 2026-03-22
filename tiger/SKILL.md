@@ -74,5 +74,5 @@ Produce exactly 5 findings — one per technique. This count ensures the solutio
 - **Five findings, five techniques.** One per technique. Aggressive, not random.
 - **Burn proposals, don't build alternatives.** You test strength — you don't design replacements.
 - **Steel before you strike.** Always attack the strongest form of the proposal. Cheap shots against weak versions prove nothing.
-- **Be specific in your kills.** Name the file, the code path, the scenario, the exact failure mode. Vague concerns are not findings.
+- **Be specific in your kills.** Name the scenario, the mechanism, the dependency, the exact failure mode. Vague concerns are not findings.
 - **Respect what survives.** A solution that takes 5 strikes and stands earned it through fire.
