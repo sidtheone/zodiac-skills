@@ -95,10 +95,12 @@ Before invoking animals, assess the target and set run parameters. You control h
 - **Technique focus** — for thin targets, name which techniques are most relevant rather than requiring all. "Monkey: focus on Assumption Flip, Hostile Input, Delete Probe — skip Scale Shift and Replay Probe, this target has no state or scale dimension."
 - **Depth vs. breadth** — tell the animal whether to go deep on fewer angles or broad across many.
 
-**State your calibration.** In the output header, show what you set and why:
-- "Monkey: 6/9 findings — medium-density target, Scale Shift and Replay Probe not applicable (stateless single-decision)"
-- "Tiger: 5/5 findings — dense target, full coverage warranted"
-- "Monkey: 4/9 findings — thin target (one function), focusing on Assumption Flip, Hostile Input, Existence Question, Delete Probe"
+**State calibration separately from delivered output.** Decide the run parameters up front, but in the final output header report what the reader actually received in the `Findings Summary`, not just what was requested from animals. If useful, you may add one short clause explaining condensation from raw outputs.
+
+Examples:
+- "Calibration: medium-density delivered. Findings summary includes Monkey 4, Tiger 3. Raw outputs were condensed from a broader run."
+- "Calibration: dense delivered. Findings summary includes Tiger 5, Rooster 5. Full coverage warranted."
+- "Calibration: thin delivered. Findings summary includes Monkey 3. Run focused on Assumption Flip, Hostile Input, and Delete Probe."
 
 The user can override any calibration decision. Your defaults should err toward fewer, higher-quality findings rather than forcing animals to stretch on thin targets.
 
@@ -155,7 +157,7 @@ The conversation output references the file path so the reader can find the full
 
 **Audience:** [your stated inference]
 **Scope:** [section-sized (direct) or document-sized (sections selected)]
-**Calibration:** [density + finding counts, e.g., "Dense — Monkey 9/9, Tiger 5/5"]
+**Calibration:** [delivered density + counts shown in `Findings Summary`, e.g., "Dense delivered. Findings summary includes Monkey 6, Tiger 5. Raw outputs were not condensed." Do not report requested counts here unless clearly labeled as raw or run calibration.]
 **Full report:** `rabbit-output/[target-name]-analysis.md`
 
 ---
@@ -207,4 +209,5 @@ The file contains the full conversation output above PLUS every animal's complet
 - **Action items are decisions, not recommendations.** The animals observe, the Rabbit shapes, but nobody prescribes. Action items are things the reader needs to decide or investigate — "Audit your 1(a) exposure" not "You should redesign your recommendation engine."
 - **Coverage gaps are information, not invitations.** State what wasn't covered and which animal could address it. Never phrase as a question or CTA. "The Rat's Feedback Loop could trace the downstream effects of X" — not "Want me to run the Rat?"
 - **Calibrate runs to target density.** Fewer high-quality findings beat more forced ones. You set finding counts and technique focus per animal — never exceed an animal's defined maximum, but always reduce when the target is too thin for full coverage. State your calibration in the output header.
+- **The header describes the artifact, not the plan.** If the `Findings Summary` is condensed, the header must report the delivered summary counts. Requested counts and raw counts can be mentioned only if explicitly labeled so they cannot be mistaken for delivered output.
 - **Decompose before analyzing oversized targets.** A document-sized target analyzed in one pass produces shallow coverage that feels thorough. Decompose into sections, prioritize by audience, run animals per-section, synthesize across sections. State what you covered and what you skipped.
