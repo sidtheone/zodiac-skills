@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Zodiac Skills — Cover</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1000px;
+    height: 420px;
+    overflow: hidden;
+    background: #0a0a0c;
+    color: #e8e6e3;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .bg-chars {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 180px;
+    font-weight: 900;
+    color: rgba(255, 77, 77, 0.04);
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    z-index: 1;
+    padding: 0 60px;
+  }
+
+  .left {
+    flex-shrink: 0;
+    position: relative;
+    width: 260px;
+    height: 300px;
+  }
+
+  .monkey-card {
+    width: 260px;
+    height: 300px;
+    background: #111114;
+    border: 1px solid rgba(255, 77, 77, 0.25);
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .monkey-card .card-top {
+    height: 140px;
+    background: linear-gradient(135deg, #1a0a0a, #1a1014);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .monkey-card .card-top .bg-glyph {
+    position: absolute;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 120px;
+    font-weight: 900;
+    color: rgba(255, 77, 77, 0.08);
+  }
+
+  .monkey-card .card-top svg {
+    width: 80px;
+    height: 80px;
+    z-index: 1;
+  }
+
+  .monkey-card .card-bottom {
+    padding: 16px 20px;
+  }
+
+  .monkey-card .card-name {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .monkey-card .card-name .chinese {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 700;
+    color: #6b6b76;
+    margin-left: 4px;
+  }
+
+  .monkey-card .card-persona {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #ff4d4d;
+    margin-bottom: 10px;
+  }
+
+  .monkey-card .techniques {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .monkey-card .techniques span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    padding: 3px 8px;
+    border: 1px solid #2a2a30;
+    border-radius: 4px;
+    color: #6b6b76;
+  }
+
+  .monkey-card .verdict {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: #6b6b76;
+  }
+
+  .monkey-card .verdict strong {
+    background: rgba(255, 77, 77, 0.15);
+    color: #ff4d4d;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 6px;
+  }
+
+  .right {
+    flex: 1;
+  }
+
+  .right h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 42px;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+
+  .right h1 span {
+    background: linear-gradient(135deg, #ff4d4d, #ff8c42, #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .right .subtitle {
+    font-size: 16px;
+    color: #6b6b76;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    max-width: 480px;
+  }
+
+  .stats {
+    display: flex;
+    gap: 32px;
+  }
+
+  .stat {
+    text-align: left;
+  }
+
+  .stat .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 28px;
+    font-weight: 700;
+    color: #ff4d4d;
+  }
+
+  .stat .label {
+    font-size: 11px;
+    color: #6b6b76;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-chars">
+  <span>猴</span>
+  <span>虎</span>
+  <span>兔</span>
+  <span>龙</span>
+</div>
+
+<div class="container">
+  <div class="left">
+    <div class="monkey-card">
+      <div class="card-top">
+        <span class="bg-glyph">猴</span>
+        <svg viewBox="0 0 120 120" fill="none">
+          <circle cx="60" cy="50" r="32" fill="#2a1a1a" stroke="#ff4d4d" stroke-width="2"/>
+          <circle cx="38" cy="42" r="12" fill="none" stroke="#ff4d4d" stroke-width="1.5"/>
+          <circle cx="82" cy="42" r="12" fill="none" stroke="#ff4d4d" stroke-width="1.5"/>
+          <circle cx="50" cy="46" r="3" fill="#ff4d4d"/>
+          <circle cx="70" cy="46" r="3" fill="#ff4d4d"/>
+          <path d="M50 58 Q60 66 70 58" stroke="#ff4d4d" stroke-width="2" fill="none"/>
+          <path d="M60 82 Q60 100 50 110" stroke="#ff4d4d" stroke-width="2" fill="none"/>
+        </svg>
+      </div>
+      <div class="card-bottom">
+        <div class="card-name">Monkey <span class="chinese">猴</span></div>
+        <div class="card-persona">The Chaos Agent</div>
+        <div class="techniques">
+          <span>Delete Probe</span>
+          <span>Hostile Input</span>
+          <span>Scale Shift</span>
+          <span>+6 more</span>
+        </div>
+        <div class="verdict">Success: <strong>Survived: yes/no</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right">
+    <h1><span>zodiac-skills</span></h1>
+    <p class="subtitle">12 markdown files that rewire how LLMs think. Each one breaks a specific behavioral default. Verified against real-world experts.</p>
+    <div class="stats">
+      <div class="stat">
+        <div class="num">0/40</div>
+        <div class="label">Contradicted</div>
+      </div>
+      <div class="stat">
+        <div class="num">12</div>
+        <div class="label">Animals</div>
+      </div>
+      <div class="stat">
+        <div class="num">11</div>
+        <div class="label">Showcases</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
