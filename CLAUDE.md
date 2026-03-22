@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Is
 
-A collection of Claude Code skills ("the zodiac") — persona-driven prompts that break specific LLM behavioral defaults. Each animal is a standalone skill in its own directory with a single `SKILL.md` file.
+A collection of agent skills ("the zodiac") — cross-model prompts that break specific LLM behavioral defaults. Compatible with Claude Code, Codex, Cursor, Gemini CLI, and any tool that reads `SKILL.md`. Each animal is a standalone skill in its own directory with a single `SKILL.md` file.
 
 ## Repo Structure
 
@@ -15,10 +15,11 @@ zodiac-skills-workspace/   — Eval outputs and iteration artifacts (not shipped
 
 Each `SKILL.md` follows a consistent format:
 - YAML frontmatter: `name`, `description` (trigger phrases and use-case summary)
-- Character identity and the LLM default it breaks
+- One-line role statement and the LLM default it breaks
+- **Decision Policy** — operational rules: what to distrust, evidence requirements, anti-scope, calibration targets
 - Phase 0: Load `VALUES.md` from the user's repo
-- Arsenal of named techniques (varies per animal)
-- Output format with a binary success mechanic field
+- Named techniques (varies per animal)
+- Output format with a binary success mechanic field and justified counts
 - Rules section constraining behavior
 
 ## The Animals (Current)
@@ -40,11 +41,12 @@ Each `SKILL.md` follows a consistent format:
 
 ## Key Design Principles to Preserve
 
-1. **Character wants what the instruction asks for** — the persona's motivation aligns with the analytical task. The Monkey doesn't "try" to find flaws; she *wants* chaos.
+1. **Decision Policy is load-bearing, persona is flavor** — operational rules (what to distrust, evidence requirements, anti-scope) drive behavior across all models. Character voice adds tone but doesn't carry the instruction.
 2. **Named technique arsenals with "never repeat"** — forces variety. Without this, LLMs gravitate to 2-3 patterns.
 3. **Binary success mechanic prevents confirmation bias** — `Survived: yes` is a valid exit, not a failure to find problems.
-4. **Anti-scope rules** — each animal has explicit boundaries ("you don't fix things", "you don't propose alternatives").
+4. **Anti-scope rules in Decision Policy** — each animal has explicit boundaries ("you don't fix things", "you don't propose alternatives").
 5. **Calibrated honesty** — each animal must produce at least some positive findings (e.g., Monkey aims for 2/7 `Survived: yes`).
+6. **Justified output counts** — finding counts are explained ("7 findings forces breadth"), not ceremonial.
 
 ## Installing
 
@@ -72,8 +74,11 @@ npx zodiac-skills --project                    # Project-level (current dir only
 
 - Keep the single-file `SKILL.md` convention — one file per animal, no supporting files
 - The `description` field in frontmatter must include trigger phrases (these drive skill invocation)
+- **Decision Policy section is mandatory** — must include: what to distrust, evidence requirements, positive verdict targets, anti-scope constraints
+- Character voice: 2-3 sentences max, behavioral directive not theatrical monologue
 - Every technique must be named and distinct — no two techniques should test the same thing from the same angle
 - The success mechanic field must be binary and must allow a "clean bill of health" verdict
-- Anti-scope constraints are mandatory — each animal must state what it does NOT do
+- Output counts must be justified (why this number), not ceremonial
+- No follow-up CTAs ("Want me to go deeper?") — the user asks if they want more
 - Phase 0 (load `VALUES.md`) is standard across all animals
 - Monkey produces 7 findings; all others produce 5
