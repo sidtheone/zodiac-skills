@@ -55,6 +55,7 @@ The vanilla analysis was a good essay. The zodiac was a diagnostic instrument.
 | [Artisan Pitch Deck](showcase/artisan-pitch-deck.md) | Rooster, Monkey, Pig | Seed deck stress-tested — unit economics and moat claims audited |
 | [darktable Architecture](showcase/darktable-architecture.md) | Rooster, Monkey, Tiger | Open-source codebase architecture review — anti-fabrication rule caught 3 false absence claims |
 | [Spine Swarm YC Launch](showcase/spine-swarm-yc-launch.md) | Monkey, Tiger, Rooster, Snake | YC S23 launch analyzed — technical claims vs. demo reality |
+| [Supabase Architecture](showcase/supabase-architecture.md) | Monkey, Tiger, Rooster, Snake | 13-service stack stress-tested — RLS default-off confirmed by CVE + security research |
 | [Anthropic Agent Skills Blog](showcase/anthropic-agent-skills-blog.md) | Rooster, Rat, Pig | Blog post claims audited against actual SDK capabilities |
 
 ## The Animals
