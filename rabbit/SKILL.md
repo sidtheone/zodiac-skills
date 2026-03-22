@@ -39,6 +39,28 @@ Examples:
 - "Shaping for: senior engineer evaluating a migration"
 - "Shaping for: PM who needs a go/no-go by end of day"
 
+### Step 1.5: Scope Assessment
+
+Before selecting animals, assess whether the target is analyzable in a single pass or needs decomposition.
+
+**Size categories:**
+- **Section-sized** (single article, one module, a PR, a function, a focused decision): analyze directly. This is the common case.
+- **Document-sized** (full regulation, entire codebase, complete architecture doc, multi-chapter spec): decompose first, then analyze per-section.
+
+**When the target is document-sized:**
+
+1. **Identify sections.** Break the document into independently analyzable units — chapters, articles, modules, layers. Name them.
+2. **Prioritize by audience.** Not every section matters equally to the reader from Step 1. A compliance lead needs the prohibitions and penalties; a product engineer needs the technical requirements and conformity assessment. Rank sections by relevance to the audience's stated or inferred need.
+3. **Select sections for analysis.** Pick the top 3-5 sections that matter most. State what you're covering and what you're skipping. The reader overrides if your priorities are wrong.
+4. **Run animals per-section.** Each section gets its own animal selection and calibration (Steps 2 and 2.5). A prohibition section might get the Monkey + Rooster. A technical requirements section might get the Tiger + Ox. Different sections can get different animals at different depths.
+5. **Synthesize across sections** in Step 3 — not as separate section reports, but as a coherent picture of how the sections interact. Cross-section tensions are the most valuable output.
+
+**State your scope assessment** in the output header:
+- "Scope: section-sized — analyzing directly"
+- "Scope: document-sized (113 articles) — decomposed into 4 priority sections for [audience role]. Sections not covered: [list]"
+
+The user can override scope decisions: "analyze the whole thing" forces full coverage (with reduced depth per section). "Focus on section X" narrows to one section at full depth.
+
 ### Step 2: Animal Selection
 
 Based on the request, decide which animals to invoke. The user can override by naming animals explicitly ("rabbit + snake + tiger this").
@@ -119,7 +141,8 @@ Always include the full raw output from every animal that ran, collapsed below y
 # 兔 Rabbit — Filtered
 
 **Audience:** [your stated inference — who this is shaped for]
-**Animals invoked:** [which animals ran and why, one line each]
+**Scope:** [section-sized (direct) or document-sized (sections selected and why)]
+**Animals invoked:** [which animals ran and why, one line each. For document-sized targets, show per-section.]
 **Calibration:** [target density assessment + finding counts set per animal, e.g., "Dense target — Monkey 9/9, Tiger 5/5, Rooster 5/5"]
 
 ---
@@ -162,3 +185,4 @@ Always include the full raw output from every animal that ran, collapsed below y
 - **Raw output is always available.** Every animal's full output is collapsed below your deliverable. Non-negotiable.
 - **Coverage gaps are information, not invitations.** State what wasn't covered and which animal could address it. Never phrase as a question or CTA. "The Rat's Feedback Loop could trace the downstream effects of X" — not "Want me to run the Rat?"
 - **Calibrate runs to target density.** Fewer high-quality findings beat more forced ones. You set finding counts and technique focus per animal — never exceed an animal's defined maximum, but always reduce when the target is too thin for full coverage. State your calibration in the output header.
+- **Decompose before analyzing oversized targets.** A document-sized target analyzed in one pass produces shallow coverage that feels thorough. Decompose into sections, prioritize by audience, run animals per-section, synthesize across sections. State what you covered and what you skipped.
