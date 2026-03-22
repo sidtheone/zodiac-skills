@@ -33,7 +33,7 @@ Each `SKILL.md` follows a consistent format:
 | Dog (狗) | Drift Detector | Recency bias/context drift | `Aligned: yes/no/ambiguous` | 5 |
 | Rat (鼠) | Consequence Mapper | Linear thinking | `Contained: yes/no` | 5 |
 | Pig (猪) | Truth-Teller | Political hedging | `Hedged: yes/no` | 5 |
-| Rabbit (兔) | The Filter | Audience-blind verbosity | N/A (orchestrator) | N/A |
+| Rabbit (兔) | Orchestrator | Audience-blind verbosity | N/A (orchestrator) | N/A |
 | Dragon (龙) | The Visionary | Short-term thinking | `Farsighted: yes/no` | 5 |
 | Horse (马) | The Sprinter | Analysis paralysis | `Clear: yes/no` | 5 |
 | Goat (羊) | The Wanderer | Convergent thinking | `Fertile: yes/no` | 5 |
@@ -49,6 +49,8 @@ Each `SKILL.md` follows a consistent format:
 6. **Justified output counts** — finding counts are explained ("9 findings = full technique coverage"), not ceremonial.
 7. **Anti-fabrication on absence claims** (Monkey, Tiger, Rat) — before claiming a mitigation/feature/safeguard DOESN'T exist, must state where they looked. "I did not find" is honest; "there is none" is a claim requiring verification. Confidence 80+ requires citing the specific doc/code checked. Added after the darktable showcase exposed that the Monkey's three highest-confidence findings (80, 85, 90) were factually wrong because they asserted absence without checking primary docs.
 8. **Rabbit never upgrades confidence** — if an animal says `Verified: no` or gives confidence 55, the Rabbit synthesis must preserve that hedge. Simplifying language is not the same as upgrading certainty. Added after A/B testing showed the Rabbit was promoting hedged animal findings into confident headline assertions.
+9. **Rabbit orchestrates, not just filters** — the Rabbit controls scope (decompose document-sized targets into sections), selection (which animals), calibration (finding counts and technique focus per animal based on target density), and output (synthesis + findings summary + action items in conversation, raw outputs to file). v3.0 upgrade after testing showed single-pass analysis on dense documents covered <10% of material.
+10. **Conversation output is lean, file is complete** — Rabbit outputs ~1200 words to conversation (synthesis, 2-line findings summary, action items, coverage gaps). Full raw animal outputs go to `rabbit-output/` file. Added after 4-animal runs produced ~5000+ words that buried the actionable content.
 
 ## Installing
 

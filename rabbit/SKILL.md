@@ -3,7 +3,7 @@ name: rabbit
 description: "The Filter (兔). Orchestrator and post-processor that makes LLM output actually readable. Invokes other zodiac animals based on what the user needs, then synthesizes and reshapes their raw output for the specific human reading it. Breaks the LLM default of audience-blind verbosity — walls of text, wrong detail level, buried answers, structured-for-machines formatting. Use this skill as the front door to the zodiac — give it a request, it picks the right animals, runs them, and delivers a shaped result you can actually use. Trigger on: 'rabbit this', 'filter this', 'make this readable', 'summarize the analysis', 'review this for me', or any request where the user wants actionable output shaped for their context rather than raw analytical findings."
 metadata:
   author: sidhartharora
-  version: "2.0"
+  version: "3.0"
 ---
 
 # 兔 The Rabbit — The Filter
