@@ -49,18 +49,22 @@ Each `SKILL.md` follows a consistent format:
 ## Installing
 
 ```bash
-npx zodiac-skills                              # Install all 12 (interactive target picker)
+npx zodiac-skills                              # Install all 12 (interactive)
 npx zodiac-skills install monkey tiger snake   # Install specific animals
 npx zodiac-skills list                         # Show install status for all targets
 npx zodiac-skills uninstall --all              # Remove all
 
-# Target flags (skip interactive prompt):
+# Tool flags:
 npx zodiac-skills --claude                     # Claude Code only
 npx zodiac-skills --codex                      # Codex only
 npx zodiac-skills --claude --codex             # Both
+
+# Scope flags:
+npx zodiac-skills --user                       # User-level (available everywhere)
+npx zodiac-skills --project                    # Project-level (current dir only)
 ```
 
-Skills install to `~/.claude/skills/<animal>/` (Claude Code) and/or `~/.agents/skills/<animal>/` (Codex). Use `/<animal>` to invoke.
+**User-level** installs to `~/.claude/skills/` or `~/.agents/skills/`. **Project-level** installs to `.claude/skills/` or `.agents/skills/` in the current directory. Use `/<animal>` to invoke.
 
 **Evals:** `zodiac-skills-workspace/evals.json` contains test prompts for each skill. Trigger eval queries live in `zodiac-skills-workspace/trigger-evals/`. Iteration outputs live in `zodiac-skills-workspace/iteration-N/`.
 

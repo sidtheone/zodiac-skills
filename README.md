@@ -41,22 +41,25 @@ Each animal is a self-contained skill that breaks one specific LLM default.
 npx zodiac-skills
 ```
 
-You'll be prompted to choose where to install:
+You'll be prompted to choose the tool and scope:
 
 ```
-  Where would you like to install?
-
-    1) Claude Code   (~/.claude/skills/)
-    2) Codex         (~/.agents/skills/)
+  Which tool?
+    1) Claude Code
+    2) Codex
     3) Both
+
+  Where should Claude Code skills be installed?
+    1) User      (available everywhere)
+    2) Project   (current directory only)
 ```
 
-Or skip the prompt with flags:
+Or skip the prompts with flags:
 
 ```bash
-npx zodiac-skills --claude                     # Claude Code only
-npx zodiac-skills --codex                      # Codex only
-npx zodiac-skills --claude --codex             # Both
+npx zodiac-skills --claude --user              # Claude Code, user-level
+npx zodiac-skills --codex --project            # Codex, project-level
+npx zodiac-skills --claude --codex --user      # Both tools, user-level
 ```
 
 Install specific animals:

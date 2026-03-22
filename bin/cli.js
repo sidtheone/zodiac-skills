@@ -5,16 +5,16 @@ const path = require("path");
 const os = require("os");
 const readline = require("readline");
 
-const TARGETS = {
+const TOOLS = {
   claude: {
     label: "Claude Code",
-    dir: path.join(os.homedir(), ".claude", "skills"),
-    invoke: "/<animal>",
+    userDir: path.join(os.homedir(), ".claude", "skills"),
+    projectDir: path.join(process.cwd(), ".claude", "skills"),
   },
   codex: {
     label: "Codex",
-    dir: path.join(os.homedir(), ".agents", "skills"),
-    invoke: "/<animal>",
+    userDir: path.join(os.homedir(), ".agents", "skills"),
+    projectDir: path.join(process.cwd(), ".agents", "skills"),
   },
 };
 
@@ -142,17 +142,23 @@ function resolveAnimals(args, defaultAll = false) {
   return animals;
 }
 
-function resolveTargetsFromArgs(args) {
-  const targets = [];
-  if (args.includes("--claude")) targets.push("claude");
-  if (args.includes("--codex")) targets.push("codex");
-  return targets;
+const FLAG_ARGS = ["--claude", "--codex", "--project", "--user"];
+
+function resolveToolsFromArgs(args) {
+  const tools = [];
+  if (args.includes("--claude")) tools.push("claude");
+  if (args.includes("--codex")) tools.push("codex");
+  return tools;
+}
+
+function resolveScopeFromArgs(args) {
+  if (args.includes("--project")) return "project";
+  if (args.includes("--user")) return "user";
+  return null;
 }
 
 function filterArgs(args) {
-  return args.filter(
-    (a) => a !== "--claude" && a !== "--codex" && a !== "--both"
-  );
+  return args.filter((a) => !FLAG_ARGS.includes(a) && a !== "--both");
 }
 
 function prompt(question) {
@@ -168,12 +174,12 @@ function prompt(question) {
   });
 }
 
-async function askTarget() {
+async function askTool() {
   console.log(`
-  Where would you like to install?
+  Which tool?
 
-    1) Claude Code   (~/.claude/skills/)
-    2) Codex         (~/.agents/skills/)
+    1) Claude Code
+    2) Codex
     3) Both
 `);
   const answer = await prompt("  Choose [1/2/3] (default: 1): ");
@@ -187,6 +193,31 @@ async function askTarget() {
   }
 }
 
+async function askScope(toolLabel) {
+  const cwd = process.cwd();
+  console.log(`
+  Where should ${toolLabel} skills be installed?
+
+    1) Project   (${cwd} only)
+    2) User      (available everywhere)
+`);
+  const answer = await prompt("  Choose [1/2] (default: 1): ");
+  return answer === "2" ? "user" : "project";
+}
+
+function getSkillsDir(toolKey, scope) {
+  const tool = TOOLS[toolKey];
+  return scope === "project" ? tool.projectDir : tool.userDir;
+}
+
+function dirLabel(skillsDir) {
+  const home = os.homedir();
+  if (skillsDir.startsWith(home)) {
+    return "~" + skillsDir.slice(home.length);
+  }
+  return skillsDir;
+}
+
 function usage() {
   console.log(`
   zodiac-skills — 12 persona-driven skills for Claude Code & Codex
@@ -198,18 +229,22 @@ function usage() {
     npx zodiac-skills uninstall --all       Remove all
     npx zodiac-skills list                  Show all animals and install status
 
-  Target flags (skip interactive prompt):
-    --claude                                Install to Claude Code only
-    --codex                                 Install to Codex only
-    (use both flags for both targets)
+  Tool flags (skip tool prompt):
+    --claude                                Claude Code
+    --codex                                 Codex
+    (use both flags for both)
+
+  Scope flags (skip scope prompt):
+    --user                                  Install to home dir (available everywhere)
+    --project                               Install to current project only
 
   Animals:
     ${ANIMALS.join(", ")}
 
   Examples:
     npx zodiac-skills
-    npx zodiac-skills install monkey tiger snake
-    npx zodiac-skills --codex
+    npx zodiac-skills --claude --project
+    npx zodiac-skills --codex --user
     npx zodiac-skills install --claude --codex monkey tiger
     npx zodiac-skills list
 `);
@@ -228,17 +263,20 @@ async function main() {
     case "install": {
       const filtered = filterArgs(args);
       const animals = resolveAnimals(filtered, true);
-      let targets = resolveTargetsFromArgs(args);
-      if (targets.length === 0) targets = await askTarget();
+      let tools = resolveToolsFromArgs(args);
+      if (tools.length === 0) tools = await askTool();
+      let scope = resolveScopeFromArgs(args);
 
-      for (const key of targets) {
-        const t = TARGETS[key];
+      for (const key of tools) {
+        const t = TOOLS[key];
+        const s = scope || (await askScope(t.label));
+        const skillsDir = getSkillsDir(key, s);
         console.log(
-          `\n  Installing ${animals.length} zodiac skill(s) to ${t.label}...\n`
+          `\n  Installing ${animals.length} zodiac skill(s) to ${t.label} (${s})...\n`
         );
-        const count = install(animals, t.dir);
+        const count = install(animals, skillsDir);
         console.log(
-          `\n  Done. ${count} skill(s) installed to ${t.dir}\n  Use ${t.invoke} to invoke.\n`
+          `\n  Done. ${count} skill(s) installed to ${dirLabel(skillsDir)}\n  Use /<animal> to invoke.\n`
         );
       }
       break;
@@ -248,43 +286,55 @@ async function main() {
     case "remove": {
       const filtered = filterArgs(args);
       const animals = resolveAnimals(filtered);
-      let targets = resolveTargetsFromArgs(args);
-      if (targets.length === 0) targets = Object.keys(TARGETS);
+      let tools = resolveToolsFromArgs(args);
+      if (tools.length === 0) tools = Object.keys(TOOLS);
 
-      for (const key of targets) {
-        const t = TARGETS[key];
-        console.log(
-          `\n  Removing from ${t.label} (${t.dir})...\n`
-        );
-        const count = uninstall(animals, t.dir);
-        console.log(`\n  ${count} skill(s) removed.\n`);
+      for (const key of tools) {
+        const t = TOOLS[key];
+        // Try both locations
+        for (const scope of ["user", "project"]) {
+          const skillsDir = getSkillsDir(key, scope);
+          if (fs.existsSync(skillsDir)) {
+            console.log(
+              `\n  Removing from ${t.label} ${scope} (${dirLabel(skillsDir)})...\n`
+            );
+            const count = uninstall(animals, skillsDir);
+            console.log(`\n  ${count} skill(s) removed.\n`);
+          }
+        }
       }
       break;
     }
 
     case "list":
     case "ls": {
-      for (const key of Object.keys(TARGETS)) {
-        const t = TARGETS[key];
-        list(t.dir, t.label);
+      for (const key of Object.keys(TOOLS)) {
+        const t = TOOLS[key];
+        for (const scope of ["user", "project"]) {
+          const skillsDir = getSkillsDir(key, scope);
+          if (fs.existsSync(skillsDir)) {
+            list(skillsDir, `${t.label} — ${scope}`);
+          }
+        }
       }
       break;
     }
 
     default: {
-      let targets = resolveTargetsFromArgs(
-        command ? [command, ...args] : args
-      );
-      if (targets.length === 0) targets = await askTarget();
+      let tools = resolveToolsFromArgs(command ? [command, ...args] : args);
+      if (tools.length === 0) tools = await askTool();
+      let scope = resolveScopeFromArgs(command ? [command, ...args] : args);
 
-      for (const key of targets) {
-        const t = TARGETS[key];
+      for (const key of tools) {
+        const t = TOOLS[key];
+        const s = scope || (await askScope(t.label));
+        const skillsDir = getSkillsDir(key, s);
         console.log(
-          `\n  Installing all 12 zodiac skills to ${t.label}...\n`
+          `\n  Installing all 12 zodiac skills to ${t.label} (${s})...\n`
         );
-        const count = install(ANIMALS, t.dir);
+        const count = install(ANIMALS, skillsDir);
         console.log(
-          `\n  Done. ${count} skill(s) installed to ${t.dir}\n  Use ${t.invoke} to invoke.\n`
+          `\n  Done. ${count} skill(s) installed to ${dirLabel(skillsDir)}\n  Use /<animal> to invoke.\n`
         );
       }
       break;
