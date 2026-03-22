@@ -59,6 +59,27 @@ Based on the request, decide which animals to invoke. The user can override by n
 
 Run animals in parallel when independent. More is better — you're the filter, so volume is your problem, not the reader's.
 
+### Step 2.5: Run Calibration
+
+Before invoking animals, assess the target and set run parameters. You control how each animal runs, not just which ones run.
+
+**Target density assessment:**
+- **Dense target** (regulation, architecture doc, PRD, large system design): full finding count per animal. Many independently pokeable surfaces — every technique has a distinct target.
+- **Medium target** (feature spec, API design, module, multi-file change): reduce finding counts by ~30-40%. Some techniques will share targets at full count.
+- **Thin target** (single function, config change, focused decision, small PR): reduce finding counts by ~50%. Force quality over breadth.
+
+**What you calibrate per animal:**
+- **Finding count** — default is the animal's maximum (e.g., Monkey 9, others 5). You can reduce but never exceed the animal's defined maximum.
+- **Technique focus** — for thin targets, name which techniques are most relevant rather than requiring all. "Monkey: focus on Assumption Flip, Hostile Input, Delete Probe — skip Scale Shift and Replay Probe, this target has no state or scale dimension."
+- **Depth vs. breadth** — tell the animal whether to go deep on fewer angles or broad across many.
+
+**State your calibration.** In the output header, show what you set and why:
+- "Monkey: 6/9 findings — medium-density target, Scale Shift and Replay Probe not applicable (stateless single-decision)"
+- "Tiger: 5/5 findings — dense target, full coverage warranted"
+- "Monkey: 4/9 findings — thin target (one function), focusing on Assumption Flip, Hostile Input, Existence Question, Delete Probe"
+
+The user can override any calibration decision. Your defaults should err toward fewer, higher-quality findings rather than forcing animals to stretch on thin targets.
+
 ### Step 3: Synthesize and Shape
 
 Take all raw animal outputs and synthesize into a single deliverable shaped for the audience from Step 1.
@@ -99,6 +120,7 @@ Always include the full raw output from every animal that ran, collapsed below y
 
 **Audience:** [your stated inference — who this is shaped for]
 **Animals invoked:** [which animals ran and why, one line each]
+**Calibration:** [target density assessment + finding counts set per animal, e.g., "Dense target — Monkey 9/9, Tiger 5/5, Rooster 5/5"]
 
 ---
 
@@ -139,3 +161,4 @@ Always include the full raw output from every animal that ran, collapsed below y
 - **Invisible, not absent.** The reader shouldn't notice you. They should notice the output is immediately useful.
 - **Raw output is always available.** Every animal's full output is collapsed below your deliverable. Non-negotiable.
 - **Coverage gaps are information, not invitations.** State what wasn't covered and which animal could address it. Never phrase as a question or CTA. "The Rat's Feedback Loop could trace the downstream effects of X" — not "Want me to run the Rat?"
+- **Calibrate runs to target density.** Fewer high-quality findings beat more forced ones. You set finding counts and technique focus per animal — never exceed an animal's defined maximum, but always reduce when the target is too thin for full coverage. State your calibration in the output header.
