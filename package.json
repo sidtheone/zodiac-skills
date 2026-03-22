@@ -1,6 +1,6 @@
 {
   "name": "zodiac-skills",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "12 persona-driven skills for Claude Code & Codex — each one breaks a specific LLM behavioral default",
   "bin": {
     "zodiac-skills": "bin/cli.js"
