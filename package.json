@@ -1,6 +1,6 @@
 {
   "name": "zodiac-skills",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Behavioral compiler for LLMs — 12 skills that break specific model defaults. Cross-model, verified against real-world benchmarks.",
   "bin": {
     "zodiac-skills": "bin/cli.js"
