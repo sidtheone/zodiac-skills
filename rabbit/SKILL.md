@@ -129,48 +129,69 @@ After synthesizing, identify what the animals did NOT cover. What analytical ang
 
 This is a completeness assessment, not a recommendation. The reader decides whether the gaps matter enough to warrant additional runs.
 
-### Step 4: Include Raw Output
+### Step 3.75: Action Items
 
-Always include the full raw output from every animal that ran, collapsed below your shaped deliverable. The reader expands these for depth — you never re-filter.
+Distill 3-5 concrete action items from the combined animal findings. These are decision points the reader needs to resolve — not recommendations (the animals don't fix things) but things that require a decision or investigation now.
 
-> **Platform note:** The `<details>` collapsed sections below are optional based on platform rendering support. If the platform doesn't render HTML, append raw outputs under clear section headers instead.
+Each action item should:
+- Start with a verb (Audit, Document, Assess, Clarify, Decide)
+- Name the specific finding or risk it addresses
+- Be actionable without reading the full report
+
+### Step 4: Save Full Report to File
+
+Save the complete analysis to a file in `rabbit-output/` (create the directory if needed). The file contains everything: the synthesis, the findings summary, action items, coverage gaps, AND the full unmodified raw output from every animal. The file is the permanent artifact — the conversation shows only the shaped deliverable.
+
+**File naming:** `rabbit-output/[target-name]-analysis.md` (e.g., `rabbit-output/article5-analysis.md`)
+
+The conversation output references the file path so the reader can find the full report.
 
 ## Output Format
+
+**In conversation** (~1100-1400 words max):
 
 ```markdown
 # 兔 Rabbit — Filtered
 
-**Audience:** [your stated inference — who this is shaped for]
-**Scope:** [section-sized (direct) or document-sized (sections selected and why)]
-**Animals invoked:** [which animals ran and why, one line each. For document-sized targets, show per-section.]
-**Calibration:** [target density assessment + finding counts set per animal, e.g., "Dense target — Monkey 9/9, Tiger 5/5, Rooster 5/5"]
+**Audience:** [your stated inference]
+**Scope:** [section-sized (direct) or document-sized (sections selected)]
+**Calibration:** [density + finding counts, e.g., "Dense — Monkey 9/9, Tiger 5/5"]
+**Full report:** `rabbit-output/[target-name]-analysis.md`
 
 ---
 
-[Your synthesized, audience-shaped deliverable. Lead with the answer. No scaffolding.]
+[Synthesized deliverable. Lead with the answer. ~500-800 words max.]
+
+### Findings Summary
+
+**[Animal]** — [X/Y verdict summary]
+
+✗ [target] ([confidence])
+  [One-line consequence]
+
+✓ [target] ([confidence])
+  [One-line consequence]
+
+[... repeat per animal ...]
+
+### Action Items
+
+1. **[Verb] [what].** [Why, tied to specific finding.]
+2. ...
+[3-5 items]
 
 ### Coverage Gaps
 
-[2-4 bullet points identifying analytical angles not covered by the animals that ran. For each gap, name the animal + technique that could address it.]
+- **[Animal] / [Technique]** — [what it would cover]
+[2-4 items]
 
 ---
-
-<details>
-<summary>Monkey — Raw Output (click to expand)</summary>
-
-[Full unmodified Monkey output]
-
-</details>
-
-<details>
-<summary>Ox — Raw Output (click to expand)</summary>
-
-[Full unmodified Ox output]
-
-</details>
-
-[... one collapsed section per animal that ran ...]
+*Full raw outputs saved to `rabbit-output/[target-name]-analysis.md`*
 ```
+
+**In file** (`rabbit-output/[target-name]-analysis.md`):
+
+The file contains the full conversation output above PLUS every animal's complete unmodified raw output appended under `## Raw Outputs` with clear section headers per animal. This is the permanent artifact — the reader goes here for depth.
 
 ## Rules
 
@@ -182,7 +203,8 @@ Always include the full raw output from every animal that ran, collapsed below y
 - **Lead with the answer.** First thing the reader sees is the thing they need most.
 - **Contradictions are gold.** When animals disagree, surface the tension clearly.
 - **Invisible, not absent.** The reader shouldn't notice you. They should notice the output is immediately useful.
-- **Raw output is always available.** Every animal's full output is collapsed below your deliverable. Non-negotiable.
+- **Raw output goes to file, not conversation.** Every animal's full unmodified output is saved to the report file in `rabbit-output/`. The conversation stays lean — synthesis, findings summary, action items, coverage gaps only.
+- **Action items are decisions, not recommendations.** The animals observe, the Rabbit shapes, but nobody prescribes. Action items are things the reader needs to decide or investigate — "Audit your 1(a) exposure" not "You should redesign your recommendation engine."
 - **Coverage gaps are information, not invitations.** State what wasn't covered and which animal could address it. Never phrase as a question or CTA. "The Rat's Feedback Loop could trace the downstream effects of X" — not "Want me to run the Rat?"
 - **Calibrate runs to target density.** Fewer high-quality findings beat more forced ones. You set finding counts and technique focus per animal — never exceed an animal's defined maximum, but always reduce when the target is too thin for full coverage. State your calibration in the output header.
 - **Decompose before analyzing oversized targets.** A document-sized target analyzed in one pass produces shallow coverage that feels thorough. Decompose into sections, prioritize by audience, run animals per-section, synthesize across sections. State what you covered and what you skipped.
