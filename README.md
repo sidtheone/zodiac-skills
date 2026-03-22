@@ -37,13 +37,46 @@ Each animal is a self-contained skill that breaks one specific LLM default.
 
 ## Install
 
-Each animal is a standalone Claude Code skill. Install individually:
-
 ```bash
-claude skill install /path/to/zodiac-skills/monkey
+npx zodiac-skills
 ```
 
-Or point your Claude Code config at the skill directory.
+You'll be prompted to choose where to install:
+
+```
+  Where would you like to install?
+
+    1) Claude Code   (~/.claude/skills/)
+    2) Codex         (~/.agents/skills/)
+    3) Both
+```
+
+Or skip the prompt with flags:
+
+```bash
+npx zodiac-skills --claude                     # Claude Code only
+npx zodiac-skills --codex                      # Codex only
+npx zodiac-skills --claude --codex             # Both
+```
+
+Install specific animals:
+
+```bash
+npx zodiac-skills install monkey tiger snake
+```
+
+Check what's installed:
+
+```bash
+npx zodiac-skills list
+```
+
+Uninstall:
+
+```bash
+npx zodiac-skills uninstall monkey tiger
+npx zodiac-skills uninstall --all
+```
 
 ## Usage
 
