@@ -3,16 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Zodiac Skills — Cover</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=DM+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
-
   :root {
-    --bg: #0a0a0c;
-    --card-bg: #111114;
-    --border: #1e1e24;
-    --text: #e8e6e3;
-    --text-dim: #6b6b76;
-    --card-color: #ff4d4d;
+    --paper: #f5f0e8;
+    --ink: #1a1714;
+    --ink-light: #3d3630;
+    --ink-wash: #8a8178;
+    --ember: #c13d2e;
+    --ember-dim: rgba(193, 61, 46, 0.08);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -21,16 +22,28 @@
     width: 1000px;
     height: 420px;
     overflow: hidden;
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
   }
 
-  /* Background characters — same opacity as cards.html bg-glyph */
+  /* Paper fiber texture */
+  body::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 10;
+    mix-blend-mode: multiply;
+  }
+
+  /* Background Chinese characters as watermarks */
   .bg-chars {
     position: absolute;
     inset: 0;
@@ -40,8 +53,8 @@
     font-family: 'Noto Serif SC', serif;
     font-size: 200px;
     font-weight: 900;
-    opacity: 0.06;
-    color: var(--text);
+    opacity: 0.04;
+    color: var(--ink);
     pointer-events: none;
     overflow: hidden;
   }
@@ -54,18 +67,37 @@
     padding: 0 56px;
   }
 
-  /* Card — exact match to cards.html styles */
+  /* Card */
   .card {
     flex-shrink: 0;
     width: 240px;
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 16px;
+    background: var(--paper);
+    border: 2px solid var(--ink);
     overflow: hidden;
+    position: relative;
+    clip-path: polygon(0 0, 98% 0, 100% 2%, 100% 100%, 2% 100%, 0 98%);
   }
 
-  .card:hover {
-    border-color: var(--card-color);
+  /* Red seal stamp */
+  .card::after {
+    content: '猴';
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 14px;
+    font-weight: 900;
+    color: var(--ember);
+    width: 28px;
+    height: 28px;
+    border: 2px solid var(--ember);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    opacity: 0.7;
+    z-index: 2;
   }
 
   .card-header {
@@ -75,27 +107,29 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background: linear-gradient(135deg, #1a0a0a, #1a1014);
+    background: linear-gradient(135deg, #ece5d8, #f0ebe2);
+    border-bottom: 1px solid rgba(26, 23, 20, 0.1);
   }
 
   .card-header .bg-glyph {
     font-family: 'Noto Serif SC', serif;
-    font-size: 180px;
+    font-size: 160px;
     font-weight: 900;
     position: absolute;
-    opacity: 0.06;
+    opacity: 0.07;
     user-select: none;
     line-height: 1;
+    color: var(--ink);
   }
 
   .card-number {
     position: absolute;
     top: 12px;
     right: 12px;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'IBM Plex Mono', monospace;
     font-size: 0.65rem;
-    color: var(--text-dim);
-    opacity: 0.5;
+    color: var(--ink-wash);
+    opacity: 0.6;
   }
 
   .card-header svg {
@@ -103,7 +137,6 @@
     z-index: 1;
     width: 100px;
     height: 100px;
-    filter: drop-shadow(0 4px 24px rgba(0,0,0,0.4));
   }
 
   .card-body {
@@ -118,19 +151,21 @@
     display: flex;
     align-items: baseline;
     gap: 8px;
+    color: var(--ink);
   }
 
   .card-name .chinese {
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     opacity: 0.5;
   }
 
   .card-persona {
-    font-size: 0.75rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--card-color);
+    letter-spacing: 0.12em;
+    color: var(--ember);
     margin-bottom: 10px;
   }
 
@@ -142,33 +177,33 @@
   }
 
   .technique-tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.6rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.55rem;
     padding: 3px 8px;
-    border-radius: 100px;
-    border: 1px solid var(--border);
-    color: var(--text-dim);
-    background: rgba(255,255,255,0.02);
+    border-radius: 0;
+    border: 1px solid rgba(26, 23, 20, 0.15);
+    color: var(--ink-wash);
+    background: var(--ember-dim);
   }
 
   .card-mechanic {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
     display: flex;
     align-items: center;
     gap: 8px;
   }
 
   .mechanic-label {
-    color: var(--text-dim);
+    color: var(--ink-wash);
   }
 
   .mechanic-value {
     padding: 2px 10px;
-    border-radius: 4px;
     font-weight: 500;
-    background: color-mix(in srgb, var(--card-color) 15%, transparent);
-    color: var(--card-color);
+    background: var(--ember-dim);
+    color: var(--ember);
+    border: 1px solid rgba(193, 61, 46, 0.15);
   }
 
   /* Right side */
@@ -178,47 +213,61 @@
 
   .right h1 {
     font-family: 'Noto Serif SC', serif;
-    font-size: 46px;
+    font-size: 48px;
     font-weight: 900;
     line-height: 1.1;
     margin-bottom: 14px;
     letter-spacing: -0.02em;
-  }
-
-  .right h1 span {
-    background: linear-gradient(135deg, #ff4d4d, #ff8c42, #ffd700);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--ink);
   }
 
   .right .subtitle {
     font-size: 15px;
-    color: var(--text-dim);
+    color: var(--ink-wash);
     line-height: 1.55;
-    margin-bottom: 24px;
+    margin-bottom: 12px;
     max-width: 460px;
+  }
+
+  /* Ink stroke divider */
+  .ink-divider {
+    width: 80px;
+    height: 3px;
+    background: var(--ink);
+    margin-bottom: 24px;
+    opacity: 0.15;
+    border-radius: 0;
+    position: relative;
+  }
+  .ink-divider::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 3px;
+    background: var(--ember);
   }
 
   .stats {
     display: flex;
-    gap: 36px;
+    gap: 40px;
   }
 
   .stat .num {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 30px;
-    font-weight: 700;
-    color: var(--card-color);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--ember);
     line-height: 1;
   }
 
   .stat .label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.6rem;
-    color: var(--text-dim);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.55rem;
+    color: var(--ink-wash);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     margin-top: 4px;
   }
 </style>
@@ -237,18 +286,25 @@
     <div class="card-header">
       <span class="bg-glyph">猴</span>
       <span class="card-number">01/12</span>
-      <!-- Exact SVG from cards.html -->
+      <!-- Monkey SVG — ink wash brush style -->
       <svg viewBox="0 0 120 120" fill="none">
-        <circle cx="60" cy="50" r="32" fill="#2a1a1a" stroke="#ff4d4d" stroke-width="2"/>
-        <circle cx="60" cy="50" r="24" fill="#1a0f0f"/>
-        <circle cx="28" cy="38" r="14" fill="#2a1a1a" stroke="#ff4d4d" stroke-width="1.5"/>
-        <circle cx="92" cy="38" r="14" fill="#2a1a1a" stroke="#ff4d4d" stroke-width="1.5"/>
-        <circle cx="50" cy="46" r="4" fill="#ff4d4d"/>
-        <circle cx="70" cy="46" r="4" fill="#ff4d4d"/>
-        <ellipse cx="60" cy="58" rx="8" ry="5" fill="#2a1a1a" stroke="#ff4d4d" stroke-width="1"/>
-        <path d="M55 57 Q60 62 65 57" stroke="#ff4d4d" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-        <path d="M60 82 Q60 95 50 105" stroke="#ff4d4d" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <path d="M50 105 Q45 110 48 115" stroke="#ff4d4d" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <circle cx="60" cy="45" r="16" stroke="#ff4d4d" stroke-width="2.5" fill="none"/>
+        <circle cx="60" cy="45" r="10" stroke="#ff4d4d" stroke-width="1" fill="none" opacity="0.3"/>
+        <circle cx="44" cy="36" r="8" stroke="#ff4d4d" stroke-width="2" fill="none"/>
+        <circle cx="76" cy="36" r="8" stroke="#ff4d4d" stroke-width="2" fill="none"/>
+        <circle cx="53" cy="42" r="3" fill="#ff4d4d" opacity="0.7"/>
+        <circle cx="67" cy="42" r="3" fill="#ff4d4d" opacity="0.7"/>
+        <ellipse cx="60" cy="52" rx="6" ry="4" stroke="#ff4d4d" stroke-width="1.5" fill="none"/>
+        <path d="M57 51 Q60 54 63 51" stroke="#ff4d4d" stroke-width="1" fill="none"/>
+        <path d="M48 58 Q55 65 60 62 Q65 65 72 58" stroke="#ff4d4d" stroke-width="2" fill="none"/>
+        <path d="M48 58 Q44 65 42 72" stroke="#ff4d4d" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M72 58 Q76 65 78 72" stroke="#ff4d4d" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M72 62 Q82 58 88 65 Q92 72 86 78 Q80 82 78 76" stroke="#ff4d4d" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M42 72 Q38 76 36 80" stroke="#ff4d4d" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <circle cx="35" cy="82" r="2" stroke="#ff4d4d" stroke-width="1" fill="none"/>
+        <circle cx="30" cy="90" r="1" fill="#ff4d4d" opacity="0.2"/>
+        <circle cx="85" cy="85" r="1.5" fill="#ff4d4d" opacity="0.15"/>
+        <circle cx="45" cy="88" r="0.8" fill="#ff4d4d" opacity="0.1"/>
       </svg>
     </div>
     <div class="card-body">
@@ -269,20 +325,21 @@
   </div>
 
   <div class="right">
-    <h1><span>The Zodiac</span></h1>
+    <h1>The Zodiac</h1>
     <p class="subtitle">Twelve animals. Twelve LLM defaults. Characters fix what instructions can't.</p>
+    <div class="ink-divider"></div>
     <div class="stats">
-      <div class="stat">
-        <div class="num">0/40</div>
-        <div class="label">Contradicted</div>
-      </div>
       <div class="stat">
         <div class="num">12</div>
         <div class="label">Animals</div>
       </div>
       <div class="stat">
-        <div class="num">11</div>
-        <div class="label">Showcases</div>
+        <div class="num">12</div>
+        <div class="label">Defaults Broken</div>
+      </div>
+      <div class="stat">
+        <div class="num">67</div>
+        <div class="label">Techniques</div>
       </div>
     </div>
   </div>
